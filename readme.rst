@@ -30,8 +30,8 @@ Advantages:
   much easier than setting up & maintaining a private PyPI server like `devpi`.
 * Splits the package management paradigm up into two distinct steps:
 
-    1. Build packages (from various locations, with specified version) and put it in the wheelhouse
-    2. Install the latest version of a package from the wheelhouse.
+  #. Build packages (from various locations, with specified version) and put it in the wheelhouse
+  #. Install the latest version of a package from the wheelhouse.
 
 Disadvantages:
 --------------
