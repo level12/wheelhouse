@@ -8,9 +8,9 @@ Wheelhouse is a utility to help maintain a wheelhouse.
 What is a Wheelhouse?
 =====================
 
-A wheelhouse is a project-specific directory where built eggs are stored.  When installing packages
-during continuious integration and production, the eggs in the wheelhouse are used instead of
-depending on PyPI or some other network location.
+A wheelhouse is a local cache of python packages in wheel format that gets committed with your code
+to your VCS. When installing packages during continuious integration and production, the wheels in
+the wheelhouse are used instead of depending on PyPI or some other network location.
 
 Advantages:
 -----------
@@ -28,12 +28,13 @@ Advantages:
   to be installed on production servers is removed.
 * Targeting forks, development versions, unpublished, and/or private software for production is
   much easier than setting up & maintaining a private PyPI server like `devpi`_.
-* Splits the package management paradigm up into two distinct steps:
+* Splits the package management process into two distinct steps:
 
-  #. Build packages (from various locations, with specified version) and put it in the wheelhouse
+  #. Build packages (from various locations, with specified version) and put wheels in the
+     wheelhouse.
   #. Install the latest version of a package from the wheelhouse.
 
-.. devpi: http://doc.devpi.net/latest/
+.. _devpi: http://doc.devpi.net/latest/
 
 Disadvantages:
 --------------
@@ -53,6 +54,7 @@ Current Features:
 Possible Future Features:
 =========================
 
+* `install`: install a package/wheel from the wheelhouse
 * `prune`: prunee the wheelhouse of old packages.
 * `status`: compare the working environment's installed packages with the requirement files, the
   wheelhouse, and package indexes (PyPI) and show where they are out of sync.
@@ -67,25 +69,27 @@ root" and all relative file paths are calculated from this location.
 You may also place a `wheelhouse.ini` file in a user-specific location to override defaults for
 Wheelhouse. See `wheelhouse config` for more information.
 
-Config files are read by a `SafeConfigParser` instance.  See the linked docs for interpolation
+Config files are read by a `SafeConfigParser`_ instance.  See the linked docs for interpolation
 support available.
 
-.. SafeConfigParser: https://docs.python.org/2/library/configparser.html#ConfigParser.SafeConfigParser
+.. _SafeConfigParser: https://docs.python.org/2/library/configparser.html#ConfigParser.SafeConfigParser
 
-An example configuration file follows.  Defaults for a Linux box are shown::
+An example configuration file follows::
 
-    # Wheelhouse will absolutize and normalize these paths.  Relative paths use the project root
-    # as the base directory.
-    requirements_path = requirements
-    wheelhouse_path = requirements/wheelhouse
-
-    requirements_files =
-        runtime.txt
+    [wheelhouse]
+    # These files are relative to the project's requirements directory (default: `requirements/`).
+    requirement_files =
+        wheel-only.txt
         testing.txt
 
+    # Make sure each package has a wheel built for python 2 & 3.
+    pip_bins = pip, pip3.4
+
     [aliases]
+    # Shortcuts to be used when specifying projects to `build`
     keg = https://github.com/level12/keg/zipball/master
     ke = https://github.com/level12/keg-elements/zipball/master
+
 
 Issues & Discussion
 ====================
