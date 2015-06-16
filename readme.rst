@@ -27,11 +27,13 @@ Advantages:
 * Since wheels are built on development or build machines, the need for development system packages
   to be installed on production servers is removed.
 * Targeting forks, development versions, unpublished, and/or private software for production is
-  much easier than setting up & maintaining a private PyPI server like `devpi`.
+  much easier than setting up & maintaining a private PyPI server like `devpi`_.
 * Splits the package management paradigm up into two distinct steps:
 
   #. Build packages (from various locations, with specified version) and put it in the wheelhouse
   #. Install the latest version of a package from the wheelhouse.
+
+.. devpi: http://doc.devpi.net/latest/
 
 Disadvantages:
 --------------
@@ -46,7 +48,7 @@ Current Features:
 * `build`: Will build all packages for all requirements file specified in the
   config file and store in the wheelhouse directory. Can also be passed the names of individual
   packages or aliases.
-* `config`: display the configuation`wheelhouse` is using.
+* `config`: display the configuation `wheelhouse` is using.
 
 Possible Future Features:
 =========================
