@@ -44,6 +44,19 @@ Disadvantages:
 * The wheelhouse will accumulate packages if not cleaned up regularly.  The `purge` command can
   help with this.
 
+Example Project
+===============
+
+The code for this project is rather basic, but it's the concept that counts. Putting the
+concept of a wheelhouse into practice has made managing dependencies for our projects across dev,
+testing and production environments much, much easier.
+
+Checkout `Keg`_ to see a project which is using a wheelhouse in conjuction with tox to manage
+dependencies.
+
+.. _Keg: https://github.com/level12/keg
+
+
 Current Features:
 =================
 
