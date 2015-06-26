@@ -9,7 +9,7 @@ What is a Wheelhouse?
 =====================
 
 A wheelhouse is a local cache of python packages in wheel format that gets committed with your code
-to your VCS. When installing packages during continuious integration and production, the wheels in
+to your VCS. When installing packages during continuous integration and production, the wheels in
 the wheelhouse are used instead of depending on PyPI or some other network location.
 
 Advantages:
@@ -19,11 +19,11 @@ Advantages:
   needed/expected and how they have changed over time.
 * CI builds are faster and more consistent.  Due to the increased speed of installing wheels from
   a local cache instead of pulling them from a network location, we can have tox start with a new
-  virtualenv before every run, thereby insuring all depdencies have been specified and installed
+  virtualenv before every run, thereby insuring all dependencies have been specified and installed
   into the wheelhouse correctly.
-* Production deployments are similiarily fast and consistent.  Since the CI and production servers
+* Production deployments are similarly fast and consistent.  Since the CI and production servers
   both pull from the same wheelhouse we have higher certainty that our production code is running
-  against the exact same pacakges that have been tested.
+  against the exact same packages that have been tested.
 * Since wheels are built on development or build machines, the need for development system packages
   to be installed on production servers is removed.
 * Targeting forks, development versions, unpublished, and/or private software for production is
@@ -41,7 +41,7 @@ Disadvantages:
 
 * Some may be opposed to storing binary packages in version control.
 * More disk space is needed for the binary packages.
-* The wheelhouse will accumlate packages if not cleaned up regularily.  The `purge` command can
+* The wheelhouse will accumulate packages if not cleaned up regularly.  The `purge` command can
   help with this.
 
 Current Features:
@@ -50,7 +50,7 @@ Current Features:
 * `build`: Will build all packages for all requirements file specified in the
   config file and store in the wheelhouse directory. Can also be passed the names of individual
   packages or aliases.
-* `config`: display the configuation `wheelhouse` is using.
+* `config`: display the configuration `wheelhouse` is using.
 * `purge`: purge the wheelhouse of any wheel that isn't the most recent version in the wheelhouse
   for that package.
 
