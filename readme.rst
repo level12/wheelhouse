@@ -51,7 +51,7 @@ The code for this project is rather basic, but it's the concept that counts. Put
 concept of a wheelhouse into practice has made managing dependencies for our projects across dev,
 testing and production environments much, much easier.
 
-Checkout `Keg`_ to see a project which is using a wheelhouse in conjuction with tox to manage
+Checkout `Keg`_ to see a project which is using a wheelhouse in conjunction with tox to manage
 dependencies.
 
 .. _Keg: https://github.com/level12/keg
