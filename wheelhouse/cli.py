@@ -50,3 +50,15 @@ def config():
         click.echo('    [wheelhouse]')
         click.echo('        requirement_files = {}'.format(config.requirement_files))
         click.echo('        pip_bins = {}'.format(config.pip_bins))
+
+
+@wheelhouse.command()
+def prune():
+    config = Config(verbose=VERBOSE)
+    will_remove = core.prune_list(config)
+    for fpath in will_remove:
+        print fpath.name
+    response = click.confirm('Delete all the above wheels?')
+    if response:
+        for fpath in will_remove:
+            fpath.unlink()

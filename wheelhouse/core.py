@@ -1,5 +1,10 @@
+from __future__ import absolute_import, unicode_literals
+
+from collections import defaultdict
 import logging
 import subprocess
+
+from wheel.install import WheelFile, parse_version
 
 log = logging.getLogger(__name__)
 
@@ -30,4 +35,25 @@ def build_files(config):
 def build_packages(config, packages):
     packages = config.alias_sub(packages)
     call_pips(config, packages)
+
+
+def prune_list(config):
+    newest = {}
+    older = list()
+    wheel_files = config.wheelhouse_dpath.glob('*.whl')
+    for wheel_fpath in wheel_files:
+        wheel_name = wheel_fpath.name
+        parts = wheel_name.split('-')
+        distname, version = parts[0:2]
+        wheel_key = '{}-{}'.format(distname, '-'.join(parts[2:]))
+        version = parse_version(version)
+        if wheel_key not in newest:
+            newest[wheel_key] = (version, wheel_fpath)
+        else:
+            newest_version, newest_wheel_fpath = newest[wheel_key]
+            if version < newest_version:
+                older.append(wheel_fpath)
+            else:
+                older.append(newest_wheel_fpath)
+    return older
 

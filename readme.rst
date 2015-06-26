@@ -50,12 +50,13 @@ Current Features:
   config file and store in the wheelhouse directory. Can also be passed the names of individual
   packages or aliases.
 * `config`: display the configuation `wheelhouse` is using.
+* `purge`: purge the wheelhouse of any wheel that isn't the most recent version in the wheelhouse
+  for that package.
 
 Possible Future Features:
 =========================
 
-* `install`: install a package/wheel from the wheelhouse
-* `prune`: prunee the wheelhouse of old packages.
+* `install`: install a package/wheel from the wheelhouse.
 * `status`: compare the working environment's installed packages with the requirement files, the
   wheelhouse, and package indexes (PyPI) and show where they are out of sync.
 
