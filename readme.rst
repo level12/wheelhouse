@@ -62,6 +62,24 @@ Possible Future Features:
   wheelhouse, and package indexes (PyPI) and show where they are out of sync.
 
 
+pip Configuration
+=================
+
+Once you have a wheelhouse (`wheelhouse build`), you can tell pip to install only from the
+wheelhouse. To do that with environment variables and a tox.ini, it would look like::
+
+    # tox.ini
+    [testenv]
+    setenv =
+        PIP_USE_WHEEL=true
+        PIP_NO_INDEX=true
+        PIP_FIND_LINKS=requirements/wheelhouse
+
+or, from the command line::
+
+    pip install --use-wheel --no-index --find-links=requirements/wheelhouse -r requirements/testing.txt
+
+
 Configuration
 ===============
 
