@@ -1,10 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 
-from collections import defaultdict
 import logging
 import subprocess
 
-from wheel.install import WheelFile, parse_version
+from wheel.install import parse_version
 
 log = logging.getLogger(__name__)
 
@@ -56,4 +55,3 @@ def prune_list(config):
             else:
                 older.append(newest_wheel_fpath)
     return older
-

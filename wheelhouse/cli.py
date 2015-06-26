@@ -1,3 +1,5 @@
+from __future__ import absolute_import, print_function, unicode_literals
+
 import logging
 
 import click
@@ -57,7 +59,7 @@ def prune():
     config = Config(verbose=VERBOSE)
     will_remove = core.prune_list(config)
     for fpath in will_remove:
-        print fpath.name
+        click.echo(fpath.name)
     response = click.confirm('Delete all the above wheels?')
     if response:
         for fpath in will_remove:

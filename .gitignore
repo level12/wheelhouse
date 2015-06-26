@@ -1,2 +1,4 @@
 *.komodo*
 *.egg-info
+.tox/
+dist/

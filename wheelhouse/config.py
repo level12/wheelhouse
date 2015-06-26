@@ -1,4 +1,7 @@
-import ConfigParser
+try:
+    import ConfigParser as configparser
+except ImportError:
+    import configparser
 
 from pathlib import Path
 
@@ -54,7 +57,7 @@ class Config(object):
                 break
 
     def load_files(self):
-        self.cp = ConfigParser.SafeConfigParser()
+        self.cp = configparser.SafeConfigParser()
         self.set_defaults()
         self.found_fpaths = self.cp.read(self.search_fpaths())
 
@@ -90,6 +93,6 @@ class Config(object):
         for name in package_names:
             try:
                 retval.append(self.cp.get('aliases', name))
-            except ConfigParser.NoOptionError:
+            except configparser.NoOptionError:
                 retval.append(name)
         return retval

@@ -104,3 +104,33 @@ Current Status
 
 Very Beta, expect changes.
 
+Development
+===============
+
+To develop on this project, begin by running our tests::
+
+    git clone https://github.com/level12/wheelhouse wheelhouse-src
+    cd wheelhouse-src
+    tox
+
+You can then examine tox.ini for insights into our development process.  In particular, we:
+
+* use `py.test` for testing (and coverage analysis)
+* use `flake8` for linting
+* store `pip` requirements files in `requirements/`
+* cache wheels in `requirements/wheelhouse` for faster & more reliable CI builds
+
+Dependency Management
+---------------------
+
+Adding a dependency involves:
+
+#. If it's a run-time dependency, add to `setup.py`.
+#. Adding the dependency to one of the requirements files in `requirements/`.
+#. Running `wheelhouse build`.
+
+Preview Readme
+--------------
+
+When updating the readme, use `restview --long-description` to preview changes.
+
