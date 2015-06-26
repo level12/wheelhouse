@@ -41,7 +41,8 @@ Disadvantages:
 
 * Some may be opposed to storing binary packages in version control.
 * More disk space is needed for the binary packages.
-* The wheelhouse will accumlate packages if not cleaned up regularily.
+* The wheelhouse will accumlate packages if not cleaned up regularily.  The `purge` command can
+  help with this.
 
 Current Features:
 =================
