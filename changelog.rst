@@ -2,5 +2,7 @@ Changelog
 =========
 
 
-development version: 2015-06-03
+in development version
 -------------------------------
+
+* added purge command
