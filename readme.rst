@@ -44,6 +44,30 @@ Disadvantages:
 * The wheelhouse will accumulate packages if not cleaned up regularly.  The `purge` command can
   help with this.
 
+Example Usage
+===============
+
+Build/Refresh the Wheelhouse
+----------------------------
+
+This will build wheels and store them in the wheelhouse for any updated packages::
+
+    wheelhouse build
+
+Setting Up an Environment
+-------------------------
+
+Create a temporary virtualenv with packages installed from the wheelhouse::
+
+    vex -mr myproj # or: mktmpenv
+    wheelhouse install -- -r requirements/dev-env.txt
+    pip install -e .
+
+Your virtualenv now contains the same packages as the wheelhouse.  By using temporary environments
+you force yourself to always work with what is in the wheelhouse.  Getting a package into your
+development environment requires you to go throught the wheelhouse to do it. This means maintaining
+the project's packages becomes a first-priority issue in every developers workflow.
+
 Example Project
 ===============
 
@@ -112,14 +136,13 @@ An example configuration file follows::
     [wheelhouse]
     # These files are relative to the project's requirements directory (default: `requirements/`).
     requirement_files =
-        wheel-only.txt
-        testing.txt
+        build.txt
 
     # Make sure each package has a wheel built for python 2 & 3.
     pip_bins = pip, pip3.4
 
     [aliases]
-    # Shortcuts to be used when specifying projects to `build`
+    # Shortcuts to be used when specifying projects to `build`.
     keg = https://github.com/level12/keg/zipball/master
     ke = https://github.com/level12/keg-elements/zipball/master
 
