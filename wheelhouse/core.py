@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 import logging
+import os
 import subprocess
 
 from wheel.install import parse_version
@@ -8,16 +9,25 @@ from wheel.install import parse_version
 log = logging.getLogger(__name__)
 
 
-def call_pips(config, pip_args):
-    pip_opts = ['-q', 'wheel', '--wheel-dir', str(config.wheelhouse_dpath), '--use-wheel',
-                '--find-links', str(config.wheelhouse_dpath)]
+def pip_env(config, no_index=False, pre=False):
+    newenv = os.environ.copy()
+    newenv['PIP_USE_WHEEL'] = 'true'
+    newenv['PIP_FIND_LINKS'] = str(config.wheelhouse_dpath)
+    newenv['PIP_WHEEL_DIR'] = str(config.wheelhouse_dpath)
+    if no_index:
+        newenv['PIP_NO_INDEX'] = 'true'
+    if pre:
+        newenv['PIP_PRE'] = 'true'
     if config.verbose:
-        pip_opts.pop(0)
+        newenv['PIP_VERBOSE'] = 'true'
+    return newenv
 
+
+def call_pips(config, env, pip_args):
     for pip_bin in config.pip_bins:
-        all_args = [pip_bin] + pip_opts + pip_args
+        all_args = [pip_bin] + pip_args
         log.info('Call %s', all_args)
-        return_code = subprocess.call(all_args)
+        return_code = subprocess.call(all_args, env=env)
         if return_code != 0:
             # we had an error, don't try to finish
             return
@@ -25,7 +35,7 @@ def call_pips(config, pip_args):
 
 def build_files(config):
     for req_file in config.requirement_files:
-        return_code = call_pips(config, ['-r', str(req_file)])
+        return_code = call_pips(config, pip_env(config), ['wheel', '-r', str(req_file)])
         if return_code != 0:
             # we had an error, don't try to finish
             return
@@ -33,7 +43,12 @@ def build_files(config):
 
 def build_packages(config, packages):
     packages = config.alias_sub(packages)
-    call_pips(config, packages)
+    call_pips(config, pip_env(config), ['wheel'] + packages)
+
+
+def install(config, pip_args):
+    env = pip_env(config, no_index=True, pre=True)
+    call_pips(config, env, ['install', '-U'] + pip_args)
 
 
 def prune_list(config):

@@ -54,6 +54,13 @@ def config():
         click.echo('        pip_bins = {}'.format(config.pip_bins))
 
 
+@wheelhouse.command(help="Setup pip to install/upgrade from the wheelhouse")
+@click.argument('pip_args', nargs=-1, required=True)
+def install(pip_args):
+    config = Config(verbose=VERBOSE)
+    core.install(config, list(pip_args))
+
+
 @wheelhouse.command()
 def prune():
     config = Config(verbose=VERBOSE)
