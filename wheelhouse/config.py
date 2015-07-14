@@ -40,12 +40,13 @@ class Config(object):
     def walk_paths(self):
         walked_paths = []
         config_dpath = Path.cwd()
-        path_root = config_dpath.root
+        path_root = config_dpath.drive + config_dpath.root
         walked_paths.append(config_dpath)
         while True:
             config_dpath = config_dpath.parent
             walked_paths.append(config_dpath)
             if str(config_dpath) == path_root:
+                # We've walked all the way up and can't go further.
                 break
 
         return [dpath.joinpath(self.config_fname) for dpath in walked_paths]
