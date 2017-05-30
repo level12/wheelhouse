@@ -15,8 +15,8 @@ VERBOSE = False
 def wheelhouse(verbose):
     global VERBOSE
     VERBOSE = verbose
-    logging_level = logging.INFO if verbose else logging.WARN
-    logging.basicConfig(level=logging_level)
+    logging.basicConfig(level=logging.WARN)
+    logging.getLogger('wheelhouse').setLevel(logging.INFO)
 
 
 @wheelhouse.command()
