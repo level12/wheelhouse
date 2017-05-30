@@ -30,14 +30,17 @@ def call_pips(config, env, pip_args):
         return_code = subprocess.call(all_args, env=env)
         if return_code != 0:
             # we had an error, don't try to finish
-            return
+            log.info('pip returned non-zero code: %d', return_code)
+            return True
 
 
 def build_files(config):
+    log.info('build files')
     for req_file in config.requirement_files:
-        return_code = call_pips(config, pip_env(config), ['wheel', '-r', str(req_file)])
-        if return_code != 0:
-            # we had an error, don't try to finish
+        log.info('build req file: %s', req_file)
+        had_error = call_pips(config, pip_env(config), ['wheel', '-r', str(req_file)])
+        if had_error:
+            log.error('pip had an error, not processing all requirements files')
             return
 
 

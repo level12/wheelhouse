@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-in development version
--------------------------------
+0.1.3 - 2017-05-30
+------------------
 
-* added purge command
+* BUG: fix bug in handling multiple requirements files
