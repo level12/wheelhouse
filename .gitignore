@@ -3,3 +3,4 @@
 .tox/
 dist/
 .vscode/
+build/
