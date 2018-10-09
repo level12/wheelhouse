@@ -4,7 +4,7 @@ import logging
 import os
 import subprocess
 
-from wheel.install import parse_version
+from pkg_resources import parse_version
 
 log = logging.getLogger(__name__)
 
